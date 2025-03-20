@@ -5,7 +5,6 @@ go 1.23.0
 toolchain go1.23.6
 
 require (
-	github.com/otiai10/gosseract/v2 v2.4.1
 	// github.com/robotn/gohook v0.31.3
 	github.com/robotn/xgb v0.10.0
 	github.com/robotn/xgbutil v0.10.0
@@ -23,7 +22,6 @@ require (
 	github.com/go-ole/go-ole v1.3.0 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
 	github.com/jezek/xgb v1.1.1 // indirect
-	github.com/kbinani/screenshot v0.0.0-20250118074034-a3924b7bbc8c
 	github.com/lufia/plan9stats v0.0.0-20240909124753-873cd0166683 // indirect
 	github.com/lxn/win v0.0.0-20210218163916-a377121e959e // indirect
 	github.com/power-devops/perfstat v0.0.0-20240221224432-82ca36839d55 // indirect
@@ -33,7 +31,17 @@ require (
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	golang.org/x/exp v0.0.0-20250215185904-eff6e970281f // indirect
 	golang.org/x/image v0.24.0 // indirect
-	golang.org/x/sys v0.30.0 // indirect
+	golang.org/x/sys v0.31.0 // indirect
+)
+
+require (
+	github.com/kamagasaki/macapture v1.0.2
+	github.com/otiai10/gosseract v2.2.1+incompatible
+)
+
+require (
+	github.com/otiai10/mint v1.6.3 // indirect
+	golang.org/x/net v0.37.0 // indirect
 )
 
 // replace golang.org/x/sys => github.com/golang/sys v0.0.0-20190109145017-48ac38b7c8cb

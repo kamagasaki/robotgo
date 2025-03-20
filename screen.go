@@ -13,7 +13,7 @@ package robotgo
 import (
 	"image"
 
-	"github.com/kbinani/screenshot"
+	"github.com/kamagasaki/macapture"
 )
 
 // GetDisplayBounds gets the display screen bounds
