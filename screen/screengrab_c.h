@@ -16,53 +16,55 @@
 #include "screen_c.h"
 
 #if defined(IS_MACOSX) && __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__ > MAC_OS_VERSION_14_4
-	static CGImageRef capture15(CGDirectDisplayID id, CGRect diIntersectDisplayLocal, CGColorSpaceRef colorSpace) {
-		dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-		__block CGImageRef image1 = nil;
-		[SCShareableContent getShareableContentWithCompletionHandler:^(SCShareableContent* content, NSError* error) {
-			@autoreleasepool {
-				if (error) {
-					dispatch_semaphore_signal(semaphore);
-					return;
-				}
-				
-				SCDisplay* target = nil;
-				for (SCDisplay *display in content.displays) {
-					if (display.displayID == id) {
-						target = display;
-						break;
-					}
-				}
-				if (!target) {
-					dispatch_semaphore_signal(semaphore);
-					return;
-				}
+static CGImageRef capture15(CGDirectDisplayID id, CGRect diIntersectDisplayLocal, CGColorSpaceRef colorSpace) {
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    __block CGImageRef image1 = NULL;
 
-				SCContentFilter* filter = [[SCContentFilter alloc] initWithDisplay:target excludingWindows:@[]];
-				SCStreamConfiguration* config = [[SCStreamConfiguration alloc] init];
-				config.queueDepth = 5;
-				config.sourceRect = diIntersectDisplayLocal;
-				config.width = diIntersectDisplayLocal.size.width * sys_scale(id);
-				config.height = diIntersectDisplayLocal.size.height * sys_scale(id);
-				config.scalesToFit = false;
-				config.captureResolution = 1;
+    [SCShareableContent getShareableContentWithCompletionHandler:^(SCShareableContent* content, NSError* error) {
+        @autoreleasepool {
+            if (error) {
+                dispatch_semaphore_signal(semaphore);
+                return;
+            }
 
-				[SCScreenshotManager captureImageWithFilter:filter
-					configuration:config
-					completionHandler:^(CGImageRef img, NSError* error) {
-						if (!error) {
-							image1 = CGImageCreateCopyWithColorSpace(img, colorSpace);
-						}
-						dispatch_semaphore_signal(semaphore);
-				}];
-			}
-		}];
+            SCDisplay* target = nil;
+            for (SCDisplay *display in content.displays) {
+                if (display.displayID == id) {
+                    target = display;
+                    break;
+                }
+            }
 
-		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-		dispatch_release(semaphore);
-		return image1;
-	}
+            if (!target) {
+                dispatch_semaphore_signal(semaphore);
+                return;
+            }
+
+            SCContentFilter* filter = [[SCContentFilter alloc] initWithDisplay:target excludingWindows:@[]];
+			SCStreamConfiguration* config = [[SCStreamConfiguration alloc] init];
+			config.queueDepth = 5;
+			config.sourceRect = diIntersectDisplayLocal;
+			config.width = diIntersectDisplayLocal.size.width * sys_scale(id);
+			config.height = diIntersectDisplayLocal.size.height * sys_scale(id);
+			config.scalesToFit = false;
+			// Remove this line, as 'captureResolution' is not a valid property
+			// config.captureResolution = 1;
+
+            CGImageRef image = CGDisplayCreateImageForRect(id, diIntersectDisplayLocal);
+            if (image != NULL) {
+                image1 = CGImageCreateCopyWithColorSpace(image, colorSpace);
+                CGImageRelease(image);  // Free the original image
+            }
+
+            dispatch_semaphore_signal(semaphore);
+        }
+    }];
+
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    return image1;
+}
 #endif
+
 
 MMBitmapRef copyMMBitmapFromDisplayInRect(MMRectInt32 rect, int32_t display_id, int8_t isPid) {
 #if defined(IS_MACOSX)
