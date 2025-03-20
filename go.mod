@@ -1,4 +1,4 @@
-module github.com/go-vgo/robotgo
+module github.com/kamagasaki/robotgo
 
 go 1.23.0
 
