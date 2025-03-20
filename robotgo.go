@@ -1,6 +1,6 @@
 // Copyright 2016 The go-vgo Project Developers. See the COPYRIGHT
 // file at the top-level directory of this distribution and at
-// https://github.com/go-vgo/robotgo/blob/master/LICENSE
+// https://github.com/kamagasaki/robotgo/blob/master/LICENSE
 //
 // Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
 // http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
@@ -15,17 +15,17 @@ Please make sure Golang, GCC is installed correctly before installing RobotGo;
 
 See Requirements:
 
-	https://github.com/go-vgo/robotgo#requirements
+	https://github.com/kamagasaki/robotgo#requirements
 
 Installation:
 
 With Go module support (Go 1.11+), just import:
 
-	import "github.com/go-vgo/robotgo"
+	import "github.com/kamagasaki/robotgo"
 
 Otherwise, to install the robotgo package, run the command:
 
-	go get -u github.com/go-vgo/robotgo
+	go get -u github.com/kamagasaki/robotgo
 */
 package robotgo
 
@@ -99,7 +99,7 @@ type (
 //
 // The common type conversion of bitmap:
 //
-//	https://github.com/go-vgo/robotgo/blob/master/docs/keys.md#type-conversion
+//	https://github.com/kamagasaki/robotgo/blob/master/docs/keys.md#type-conversion
 type Bitmap struct {
 	ImgBuf        *uint8
 	Width, Height int

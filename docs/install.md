@@ -30,4 +30,4 @@ GOOS=windows GOARCH=amd64 CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64
 // CXX=mingw-w64\x86_64-7.2.0-win32-seh-rt_v5-rev1\mingw64\bin\g++.exe
 ```
 
-Some discussions and questions, please see [issues/228](https://github.com/go-vgo/robotgo/issues/228), [issues/143](https://github.com/go-vgo/robotgo/issues/143).
+Some discussions and questions, please see [issues/228](https://github.com/kamagasaki/robotgo/issues/228), [issues/143](https://github.com/kamagasaki/robotgo/issues/143).
